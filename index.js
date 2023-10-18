@@ -2,9 +2,15 @@ const app = require('./server')
 const Games = require('./database/Games')
 const User = require('./database/User')
 const connection = require('./database/database')
-const auth = require('./middleware/auth')
+
 const jwt = require('jsonwebtoken')
 const jwtSecret = "phpemuitoantigo"
+const auth = require('./middleware/auth')
+
+
+
+
+
 
 connection.authenticate().then(()=>{
     console.log('success database')
@@ -12,7 +18,7 @@ connection.authenticate().then(()=>{
     console.log('err in authenticate: '+ err)
 })
 
-app.get('/Games',auth,(req,res)=>{
+app.get('/games',auth,(req,res)=>{
     Games.findAll().
     then((name)=>{
         if(name == null){
@@ -103,6 +109,7 @@ app.post('/auth',(req,res)=>{
                 }else{
                    console.log(token)
                    res.json({token:token})
+                   
                    res.sendStatus(200)
                   
                 }
